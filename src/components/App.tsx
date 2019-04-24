@@ -12,9 +12,9 @@ interface IState {
 class App extends Component<{}, IState> {
   state = {
     messageList: [
-      { message: "aloha", author: "yeman" },
-      { message: "hey hey hey", author: "ayes" },
-      { message: "why the earth spins", author: "anoymous" }
+      { id: "0", message: "aloha", author: "yeman" },
+      { id: "1", message: "hey hey hey", author: "ayes" },
+      { id: "2", message: "why the earth spins", author: "anoymous" }
     ]
   };
 
@@ -29,13 +29,25 @@ class App extends Component<{}, IState> {
     });
   };
 
+  handleRemoveMessage = (e: React.FormEvent<EventTarget>) => {
+    const { name }: any = e.target;
+    const { messageList } = this.state;
+    const newMessageList = messageList.filter(message => message.id !== name);
+    this.setState({
+      messageList: newMessageList
+    });
+  };
+
   render() {
     const { messageList } = this.state;
     return (
       <div className="App">
         <main>
           <MessageForm handleAddMessage={this.handleAddMessage} />
-          <MessageList messageList={messageList} />
+          <MessageList
+            messageList={messageList}
+            handleRemoveMessage={this.handleRemoveMessage}
+          />
         </main>
       </div>
     );

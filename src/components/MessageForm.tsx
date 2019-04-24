@@ -9,6 +9,7 @@ interface IState extends IMessage {}
 
 class MessageForm extends React.Component<IProps, IState> {
   state: IState = {
+    id: "",
     message: "",
     author: ""
   };
@@ -27,6 +28,7 @@ class MessageForm extends React.Component<IProps, IState> {
     if (message) {
       handleAddMessage(this.state);
       this.setState({
+        id: Math.floor(Math.random() * 100).toString(),
         message: "",
         author: ""
       });
